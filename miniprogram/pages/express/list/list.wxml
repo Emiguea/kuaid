@@ -1,0 +1,29 @@
+<view class="container">
+  <!-- Courier: Register button -->
+  <view wx:if="{{userInfo.role === 1}}" class="register-btn" bindtap="goToRegister">
+    <text>+ 快递入库</text>
+  </view>
+
+  <!-- Express list -->
+  <view wx:if="{{expressList.length > 0}}">
+    <view class="card express-card" wx:for="{{expressList}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+      <view class="flex-between">
+        <text class="express-company">{{item.company || '快递'}}</text>
+        <text class="status-tag status-{{item.status}}">{{item.statusText}}</text>
+      </view>
+      <text class="tracking-no">单号: {{item.trackingNo}}</text>
+      <view class="flex-between" style="margin-top: 16rpx;">
+        <text class="pickup-code" wx:if="{{item.status === 0}}">取件码: {{item.pickupCode}}</text>
+        <text class="text-gray">{{item.shelfNo ? '货架: ' + item.shelfNo : ''}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{expressList.length === 0 && !loading}}" class="empty-tip">
+    <text>暂无快递记录</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading-tip">
+    <text>加载中...</text>
+  </view>
+</view>

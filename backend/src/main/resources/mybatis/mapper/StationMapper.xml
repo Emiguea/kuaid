@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuaid.dao.StationMapper">
+
+    <resultMap id="BaseResultMap" type="com.kuaid.entity.Station">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="longitude" property="longitude"/>
+        <result column="latitude" property="latitude"/>
+        <result column="contact_phone" property="contactPhone"/>
+        <result column="manager_id" property="managerId"/>
+        <result column="status" property="status"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, address, longitude, latitude, contact_phone, manager_id, status, created_at, updated_at
+    </sql>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `station` WHERE id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `station` WHERE status = 1 ORDER BY id ASC
+    </select>
+
+    <select id="selectByManagerId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `station` WHERE manager_id = #{managerId}
+    </select>
+
+    <insert id="insert" parameterType="com.kuaid.entity.Station" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `station` (name, address, longitude, latitude, contact_phone, manager_id, status)
+        VALUES (#{name}, #{address}, #{longitude}, #{latitude}, #{contactPhone}, #{managerId}, #{status})
+    </insert>
+
+    <update id="update" parameterType="com.kuaid.entity.Station">
+        UPDATE `station`
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="contactPhone != null">contact_phone = #{contactPhone},</if>
+            <if test="status != null">status = #{status},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,5 @@
+.section-title { font-size: 28rpx; color: #666; display: block; margin-bottom: 20rpx; }
+.amount-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20rpx; }
+.amount-item { text-align: center; padding: 24rpx; border: 2rpx solid #e0e0e0; border-radius: 12rpx; font-size: 32rpx; color: #333; }
+.amount-item.active { border-color: #4A90D9; color: #4A90D9; background: #f0f7ff; }
+.amount-input { border: 2rpx solid #e0e0e0; border-radius: 8rpx; padding: 20rpx; font-size: 32rpx; }

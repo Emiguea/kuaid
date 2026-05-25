@@ -1,0 +1,36 @@
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <text class="greeting">Hi, {{userInfo.nickname || '同学'}}</text>
+    <view class="notification-icon" bindtap="goToNotification">
+      <text>🔔</text>
+      <view wx:if="{{unreadCount > 0}}" class="badge">{{unreadCount}}</view>
+    </view>
+  </view>
+
+  <!-- Quick Actions -->
+  <view class="actions-grid">
+    <view class="action-item" bindtap="goToExpress">
+      <text class="action-icon">📦</text>
+      <text class="action-text">我的快递</text>
+    </view>
+    <view class="action-item" bindtap="goToOrders">
+      <text class="action-icon">🚶</text>
+      <text class="action-text">代取订单</text>
+    </view>
+    <view class="action-item" bindtap="goToBalance">
+      <text class="action-icon">💰</text>
+      <text class="action-text">我的余额</text>
+    </view>
+    <view class="action-item" bindtap="goToNotification">
+      <text class="action-icon">📢</text>
+      <text class="action-text">消息通知</text>
+    </view>
+  </view>
+
+  <!-- Tips -->
+  <view class="card">
+    <text class="card-title">使用提示</text>
+    <text class="card-desc">快递到达后，您会收到取件码通知。凭取件码到站点取件，或下单代取服务。</text>
+  </view>
+</view>

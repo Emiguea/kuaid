@@ -1,0 +1,8 @@
+<view class="container">
+  <view class="card station-card" wx:for="{{stations}}" wx:key="id" bindtap="goToManage" data-id="{{item.id}}">
+    <text class="station-name">{{item.name}}</text>
+    <text class="station-address">{{item.address}}</text>
+    <text class="station-phone" wx:if="{{item.contactPhone}}">联系电话: {{item.contactPhone}}</text>
+  </view>
+  <view wx:if="{{stations.length === 0}}" class="empty-tip"><text>暂无站点</text></view>
+</view>

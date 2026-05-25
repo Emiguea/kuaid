@@ -1,0 +1,41 @@
+<view class="container" wx:if="{{order}}">
+  <view class="status-banner">
+    <text class="status-text">{{order.statusText}}</text>
+  </view>
+
+  <view class="card">
+    <view class="info-row">
+      <text class="info-label">订单编号</text>
+      <text class="info-value">{{order.orderNo}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">服务费</text>
+      <text class="info-value text-danger">¥{{order.fee}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">配送地址</text>
+      <text class="info-value">{{order.deliveryAddress}}</text>
+    </view>
+    <view class="info-row" wx:if="{{order.studentRemark}}">
+      <text class="info-label">备注</text>
+      <text class="info-value">{{order.studentRemark}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">下单时间</text>
+      <text class="info-value">{{order.createdAtText}}</text>
+    </view>
+    <view class="info-row" wx:if="{{order.completedAt}}">
+      <text class="info-label">完成时间</text>
+      <text class="info-value">{{order.completedAtText}}</text>
+    </view>
+  </view>
+
+  <!-- Actions -->
+  <view class="action-section">
+    <!-- Courier: accept/complete -->
+    <button wx:if="{{userInfo.role === 1 && order.status === 0}}" class="btn-primary" bindtap="acceptOrder">接单</button>
+    <button wx:if="{{userInfo.role === 1 && order.status === 1}}" class="btn-primary" bindtap="completeOrder">确认送达</button>
+    <!-- Cancel (before complete) -->
+    <button wx:if="{{order.status < 3}}" class="btn-cancel" bindtap="cancelOrder">取消订单</button>
+  </view>
+</view>

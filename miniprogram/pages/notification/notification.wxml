@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="top-action" bindtap="markAllRead">
+    <text class="text-primary">全部标为已读</text>
+  </view>
+
+  <view wx:if="{{notifications.length > 0}}">
+    <view class="card notification-card {{item.isRead === 0 ? 'unread' : ''}}"
+          wx:for="{{notifications}}" wx:key="id" bindtap="markRead" data-id="{{item.id}}">
+      <view class="flex-between">
+        <text class="notif-title">{{item.title}}</text>
+        <view wx:if="{{item.isRead === 0}}" class="unread-dot"></view>
+      </view>
+      <text class="notif-content">{{item.content}}</text>
+      <text class="notif-time">{{item.createdAtText}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{notifications.length === 0 && !loading}}" class="empty-tip">
+    <text>暂无通知</text>
+  </view>
+</view>

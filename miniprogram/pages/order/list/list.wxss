@@ -1,0 +1,34 @@
+.order-card {
+  margin-bottom: 20rpx;
+}
+
+.order-no {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.status-tag {
+  font-size: 24rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.status-0 { background: #fff3cd; color: #856404; }
+.status-1 { background: #cce5ff; color: #004085; }
+.status-2 { background: #d4edda; color: #155724; }
+.status-3 { background: #d4edda; color: #155724; }
+.status-4 { background: #f8d7da; color: #721c24; }
+
+.order-info {
+  margin-top: 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  font-size: 28rpx;
+}
+
+.empty-tip, .loading-tip {
+  text-align: center;
+  padding: 60rpx;
+  color: #999;
+}

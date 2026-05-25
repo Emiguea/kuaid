@@ -1,0 +1,5 @@
+.station-card { margin-bottom: 20rpx; }
+.station-name { font-size: 32rpx; font-weight: bold; display: block; margin-bottom: 10rpx; }
+.station-address { font-size: 26rpx; color: #666; display: block; margin-bottom: 8rpx; }
+.station-phone { font-size: 26rpx; color: #4A90D9; }
+.empty-tip { text-align: center; padding: 60rpx; color: #999; }

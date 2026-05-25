@@ -1,0 +1,72 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+}
+
+.greeting {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.notification-icon {
+  position: relative;
+  font-size: 44rpx;
+}
+
+.badge {
+  position: absolute;
+  top: -8rpx;
+  right: -12rpx;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 20rpx;
+  min-width: 32rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+  border-radius: 16rpx;
+  padding: 0 6rpx;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24rpx;
+  margin-bottom: 30rpx;
+}
+
+.action-item {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 40rpx 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.action-icon {
+  font-size: 56rpx;
+  margin-bottom: 16rpx;
+}
+
+.action-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.card-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+}

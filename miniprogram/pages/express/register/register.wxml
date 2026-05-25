@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="card">
+    <view class="form-item">
+      <text class="form-label">快递单号 *</text>
+      <input class="form-input" placeholder="请输入快递单号" data-field="trackingNo" bindinput="onInput"/>
+    </view>
+    <view class="form-item">
+      <text class="form-label">快递公司</text>
+      <input class="form-input" placeholder="如：顺丰、中通" data-field="company" bindinput="onInput"/>
+    </view>
+    <view class="form-item">
+      <text class="form-label">所属站点 *</text>
+      <picker mode="selector" range="{{stations}}" range-key="name" value="{{stationIndex}}" bindchange="onStationChange">
+        <view class="form-input picker-value">{{stations[stationIndex].name || '请选择站点'}}</view>
+      </picker>
+    </view>
+    <view class="form-item">
+      <text class="form-label">收件人手机 *</text>
+      <input class="form-input" placeholder="请输入收件人手机号" type="number" maxlength="11" data-field="recipientPhone" bindinput="onInput"/>
+    </view>
+    <view class="form-item">
+      <text class="form-label">收件人姓名</text>
+      <input class="form-input" placeholder="请输入收件人姓名" data-field="recipientName" bindinput="onInput"/>
+    </view>
+    <view class="form-item">
+      <text class="form-label">货架号</text>
+      <input class="form-input" placeholder="如：A-3-12" data-field="shelfNo" bindinput="onInput"/>
+    </view>
+    <view class="form-item">
+      <text class="form-label">备注</text>
+      <input class="form-input" placeholder="备注信息" data-field="remark" bindinput="onInput"/>
+    </view>
+  </view>
+
+  <button class="btn-primary" style="margin-top: 30rpx;" bindtap="handleSubmit">确认入库</button>
+</view>

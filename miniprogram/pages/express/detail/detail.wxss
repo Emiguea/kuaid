@@ -1,0 +1,72 @@
+.status-banner {
+  text-align: center;
+  padding: 30rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.status-bg-0 { background: #fff3cd; }
+.status-bg-1 { background: #d4edda; }
+.status-bg-2 { background: #f8d7da; }
+.status-bg-3 { background: #e2e3e5; }
+
+.status-text {
+  font-size: 34rpx;
+  font-weight: bold;
+}
+
+.pickup-section {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #666;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.pickup-code-large {
+  font-size: 72rpx;
+  font-weight: bold;
+  color: #e74c3c;
+  letter-spacing: 16rpx;
+  display: block;
+  margin: 20rpx 0;
+}
+
+.pickup-tip {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.info-value {
+  color: #333;
+  font-size: 28rpx;
+}
+
+.pickup-input {
+  border: 2rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  margin: 20rpx 0;
+  font-size: 32rpx;
+  text-align: center;
+  letter-spacing: 8rpx;
+}

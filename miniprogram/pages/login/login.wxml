@@ -1,0 +1,12 @@
+<view class="login-page">
+  <view class="logo-section">
+    <view class="logo-icon">📦</view>
+    <text class="app-name">校园快递</text>
+    <text class="app-desc">便捷取件 · 安心代取</text>
+  </view>
+
+  <view class="login-section">
+    <button class="login-btn" bindtap="handleLogin">微信一键登录</button>
+    <text class="login-tip">登录即同意《用户服务协议》</text>
+  </view>
+</view>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuaid.dao.ExpressMapper">
+
+    <resultMap id="BaseResultMap" type="com.kuaid.entity.Express">
+        <id column="id" property="id"/>
+        <result column="tracking_no" property="trackingNo"/>
+        <result column="company" property="company"/>
+        <result column="station_id" property="stationId"/>
+        <result column="recipient_phone" property="recipientPhone"/>
+        <result column="recipient_name" property="recipientName"/>
+        <result column="pickup_code" property="pickupCode"/>
+        <result column="shelf_no" property="shelfNo"/>
+        <result column="status" property="status"/>
+        <result column="registered_by" property="registeredBy"/>
+        <result column="picked_by" property="pickedBy"/>
+        <result column="registered_at" property="registeredAt"/>
+        <result column="picked_at" property="pickedAt"/>
+        <result column="expire_at" property="expireAt"/>
+        <result column="remark" property="remark"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, tracking_no, company, station_id, recipient_phone, recipient_name, pickup_code,
+        shelf_no, status, registered_by, picked_by, registered_at, picked_at, expire_at,
+        remark, created_at, updated_at
+    </sql>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `express` WHERE id = #{id}
+    </select>
+
+    <select id="selectByStationAndStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `express`
+        WHERE station_id = #{stationId}
+        <if test="status != null"> AND status = #{status}</if>
+        ORDER BY created_at DESC LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countByStationAndStatus" resultType="long">
+        SELECT COUNT(*) FROM `express`
+        WHERE station_id = #{stationId}
+        <if test="status != null"> AND status = #{status}</if>
+    </select>
+
+    <select id="selectByRecipientPhone" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `express`
+        WHERE recipient_phone = #{recipientPhone}
+        ORDER BY created_at DESC LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countByRecipientPhone" resultType="long">
+        SELECT COUNT(*) FROM `express` WHERE recipient_phone = #{recipientPhone}
+    </select>
+
+    <select id="selectByPickupCodeAndStation" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `express`
+        WHERE pickup_code = #{pickupCode} AND station_id = #{stationId} AND status = 0
+    </select>
+
+    <select id="existsByTrackingNoAndStation" resultType="int">
+        SELECT COUNT(*) FROM `express` WHERE tracking_no = #{trackingNo} AND station_id = #{stationId}
+    </select>
+
+    <insert id="insert" parameterType="com.kuaid.entity.Express" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `express` (tracking_no, company, station_id, recipient_phone, recipient_name,
+            pickup_code, shelf_no, status, registered_by, expire_at, remark)
+        VALUES (#{trackingNo}, #{company}, #{stationId}, #{recipientPhone}, #{recipientName},
+            #{pickupCode}, #{shelfNo}, #{status}, #{registeredBy}, #{expireAt}, #{remark})
+    </insert>
+
+    <update id="update" parameterType="com.kuaid.entity.Express">
+        UPDATE `express`
+        <set>
+            <if test="status != null">status = #{status},</if>
+            <if test="pickedBy != null">picked_by = #{pickedBy},</if>
+            <if test="pickedAt != null">picked_at = #{pickedAt},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+</mapper>

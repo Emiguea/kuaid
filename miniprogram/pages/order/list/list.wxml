@@ -1,0 +1,22 @@
+<view class="container">
+  <view wx:if="{{orders.length > 0}}">
+    <view class="card order-card" wx:for="{{orders}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+      <view class="flex-between">
+        <text class="order-no">{{item.orderNo}}</text>
+        <text class="status-tag status-{{item.status}}">{{item.statusText}}</text>
+      </view>
+      <view class="order-info">
+        <text>服务费: ¥{{item.fee}}</text>
+        <text class="text-gray">{{item.deliveryAddress}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{orders.length === 0 && !loading}}" class="empty-tip">
+    <text>暂无订单</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading-tip">
+    <text>加载中...</text>
+  </view>
+</view>

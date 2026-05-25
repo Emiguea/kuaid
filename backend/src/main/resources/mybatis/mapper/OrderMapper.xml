@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuaid.dao.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.kuaid.entity.Order">
+        <id column="id" property="id"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="express_id" property="expressId"/>
+        <result column="student_id" property="studentId"/>
+        <result column="courier_id" property="courierId"/>
+        <result column="station_id" property="stationId"/>
+        <result column="fee" property="fee"/>
+        <result column="status" property="status"/>
+        <result column="delivery_address" property="deliveryAddress"/>
+        <result column="student_remark" property="studentRemark"/>
+        <result column="completed_at" property="completedAt"/>
+        <result column="cancelled_at" property="cancelledAt"/>
+        <result column="cancel_reason" property="cancelReason"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, order_no, express_id, student_id, courier_id, station_id, fee, status,
+        delivery_address, student_remark, completed_at, cancelled_at, cancel_reason,
+        created_at, updated_at
+    </sql>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `order` WHERE id = #{id}
+    </select>
+
+    <select id="selectByOrderNo" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `order` WHERE order_no = #{orderNo}
+    </select>
+
+    <select id="selectByStudentId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `order`
+        WHERE student_id = #{studentId}
+        <if test="status != null"> AND status = #{status}</if>
+        ORDER BY created_at DESC LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countByStudentId" resultType="long">
+        SELECT COUNT(*) FROM `order`
+        WHERE student_id = #{studentId}
+        <if test="status != null"> AND status = #{status}</if>
+    </select>
+
+    <select id="selectByCourierId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `order`
+        WHERE courier_id = #{courierId}
+        <if test="status != null"> AND status = #{status}</if>
+        ORDER BY created_at DESC LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countByCourierId" resultType="long">
+        SELECT COUNT(*) FROM `order`
+        WHERE courier_id = #{courierId}
+        <if test="status != null"> AND status = #{status}</if>
+    </select>
+
+    <select id="selectPendingByStationId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM `order`
+        WHERE station_id = #{stationId} AND status = 0
+        ORDER BY created_at ASC LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countPendingByStationId" resultType="long">
+        SELECT COUNT(*) FROM `order` WHERE station_id = #{stationId} AND status = 0
+    </select>
+
+    <insert id="insert" parameterType="com.kuaid.entity.Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `order` (order_no, express_id, student_id, courier_id, station_id,
+            fee, status, delivery_address, student_remark)
+        VALUES (#{orderNo}, #{expressId}, #{studentId}, #{courierId}, #{stationId},
+            #{fee}, #{status}, #{deliveryAddress}, #{studentRemark})
+    </insert>
+
+    <update id="update" parameterType="com.kuaid.entity.Order">
+        UPDATE `order`
+        <set>
+            <if test="courierId != null">courier_id = #{courierId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="completedAt != null">completed_at = #{completedAt},</if>
+            <if test="cancelledAt != null">cancelled_at = #{cancelledAt},</if>
+            <if test="cancelReason != null">cancel_reason = #{cancelReason},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+</mapper>

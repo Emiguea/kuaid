@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="card">
+    <text class="section-title">选择充值金额</text>
+    <view class="amount-grid">
+      <view class="amount-item {{amount === item ? 'active' : ''}}"
+            wx:for="{{presetAmounts}}" wx:key="*this"
+            data-amount="{{item}}" bindtap="selectAmount">
+        ¥{{item}}
+      </view>
+    </view>
+
+    <text class="section-title" style="margin-top: 30rpx;">自定义金额</text>
+    <input class="amount-input" type="digit" placeholder="请输入金额"
+           value="{{amount}}" bindinput="onAmountInput"/>
+  </view>
+
+  <button class="btn-primary" style="margin-top: 30rpx;" bindtap="handleRecharge">确认充值</button>
+</view>

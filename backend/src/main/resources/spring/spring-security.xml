@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- HTTP Security Configuration -->
+    <security:http auto-config="false" use-expressions="true" create-session="stateless"
+                   entry-point-ref="jwtAuthenticationEntryPoint">
+        <!-- Disable CSRF for stateless API -->
+        <security:csrf disabled="true"/>
+
+        <!-- Public endpoints -->
+        <security:intercept-url pattern="/api/v1/auth/**" access="permitAll"/>
+
+        <!-- Courier-only endpoints -->
+        <security:intercept-url pattern="/api/v1/express" method="POST" access="hasRole('COURIER')"/>
+        <security:intercept-url pattern="/api/v1/express/*/status" method="PUT" access="hasRole('COURIER')"/>
+        <security:intercept-url pattern="/api/v1/stations" method="POST" access="hasRole('COURIER')"/>
+        <security:intercept-url pattern="/api/v1/stations/*" method="PUT" access="hasRole('COURIER')"/>
+        <security:intercept-url pattern="/api/v1/orders/*/accept" method="PUT" access="hasRole('COURIER')"/>
+        <security:intercept-url pattern="/api/v1/orders/*/complete" method="PUT" access="hasRole('COURIER')"/>
+
+        <!-- Student-only endpoints -->
+        <security:intercept-url pattern="/api/v1/orders" method="POST" access="hasRole('STUDENT')"/>
+
+        <!-- All other API endpoints require authentication -->
+        <security:intercept-url pattern="/api/v1/**" access="isAuthenticated()"/>
+
+        <!-- Add JWT filter before UsernamePasswordAuthenticationFilter -->
+        <security:custom-filter ref="jwtAuthenticationFilter" before="FORM_LOGIN_FILTER"/>
+    </security:http>
+
+    <!-- Authentication Entry Point -->
+    <bean id="jwtAuthenticationEntryPoint" class="com.kuaid.security.JwtAuthenticationEntryPoint"/>
+
+    <!-- JWT Filter -->
+    <bean id="jwtAuthenticationFilter" class="com.kuaid.security.JwtAuthenticationFilter"/>
+
+    <!-- Authentication Manager -->
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="customUserDetailsService"/>
+    </security:authentication-manager>
+
+    <bean id="customUserDetailsService" class="com.kuaid.security.CustomUserDetailsService"/>
+</beans>

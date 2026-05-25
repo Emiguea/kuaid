@@ -1,0 +1,44 @@
+<view class="container" wx:if="{{express}}">
+  <!-- Status Banner -->
+  <view class="status-banner status-bg-{{express.status}}">
+    <text class="status-text">{{express.statusText}}</text>
+  </view>
+
+  <!-- Pickup Code Display -->
+  <view class="card pickup-section" wx:if="{{express.status === 0}}">
+    <text class="section-title">取件码</text>
+    <text class="pickup-code-large">{{express.pickupCode}}</text>
+    <text class="pickup-tip">请凭此取件码到站点取件</text>
+  </view>
+
+  <!-- Express Info -->
+  <view class="card">
+    <view class="info-row">
+      <text class="info-label">快递公司</text>
+      <text class="info-value">{{express.company || '未知'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">快递单号</text>
+      <text class="info-value">{{express.trackingNo}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">货架号</text>
+      <text class="info-value">{{express.shelfNo || '-'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">入库时间</text>
+      <text class="info-value">{{express.registeredAtText}}</text>
+    </view>
+    <view class="info-row" wx:if="{{express.pickedAt}}">
+      <text class="info-label">取件时间</text>
+      <text class="info-value">{{express.pickedAtText}}</text>
+    </view>
+  </view>
+
+  <!-- Self Pickup -->
+  <view class="card" wx:if="{{express.status === 0}}">
+    <text class="section-title">确认取件</text>
+    <input class="pickup-input" placeholder="请输入取件码" bindinput="onPickupCodeInput" value="{{pickupCode}}" type="number" maxlength="6"/>
+    <button class="btn-primary" bindtap="confirmPickup">确认取件</button>
+  </view>
+</view>
